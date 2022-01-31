@@ -59,42 +59,14 @@
         event.StopImidiantePropagation();
         event.PreventDefault();
 
-        $.ajax({
-            url: this.action,
-            method: this.method,
-            dataType: "json",
-            data: this.serializeArray(),
-            success: function (res){
-                if (!res.Success)
-                    ShowToast(res.Error, 'danger');
-                else
-                    location.href = "@Url.Action("Index", "Home")";
-            },
-            error: function (jqXHR, status, error){
-                ShowToast(`${status}: ${error}`, 'danger');
-            }
-        });
+        SubmitForm(this, ReloadCallback);
     });
 
     $('#form-register').on('submit', function (event){
         event.StopImidiantePropagation();
         event.PreventDefault();
 
-        $.ajax({
-            url: this.action,
-            method: this.method,
-            dataType: "json",
-            data: this.serializeArray(),
-            success: function (res){
-                if (!res.Success)
-                    ShowToast(res.Error, 'danger');
-                else
-                    ShowToast("Finished!", 'success');
-            },
-            error: function (jqXHR, status, error){
-                ShowToast(`${status}: ${error}`, 'danger');
-            }
-        });
+        SubmitForm(this, DefaultCallbackSubmitForm);
     });
 
 </script>

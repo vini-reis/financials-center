@@ -11,5 +11,7 @@ namespace Data.Entities.Authentication
 
         public string LastName { get; set; }
         public string Tag { get; set; }
+        public bool Active { get; set; }
+
     }
 }

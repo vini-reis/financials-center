@@ -17,6 +17,11 @@ namespace Data.Entities.Helpers
             Data = data;
         }
 
+        public void Failed(string message)
+        {
+            Message = message;
+        }
+
         public void Failed(string message, string internalMessage)
         {
             Message = message;

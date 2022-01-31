@@ -1,0 +1,53 @@
+﻿@model UserViewModel
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="float-end">
+            <button type="button" class="btn btn-primary btn-lg btn-floating" onclick="OpenUserModal()">
+                <span class="material-icons-round mt-2">add</span>
+            </button>
+        </div>
+        <h3>Users</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Full name</th>
+                    <th>E-mail</th>
+                    <th>Tag</th>
+                    <th>Created on</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>@($"{user.UserName} {user.LastName}")</td>
+                        <td>@user.Email</td>
+                        <td>@@@user.Tag</td>
+                        <td>@user.CreatedOn.ToString()</td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-sm btn-primary btn-rounded waves-effect waves-light dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="javascript: OpenUserModal('@user.Id')">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<partial name="_DetailsModal" />
+
+<script>
+
+</script>

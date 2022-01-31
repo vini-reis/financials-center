@@ -1,0 +1,74 @@
+﻿@model Web.ViewModels.UserViewModel
+
+<div id="modal-user" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">User's details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-user" method="post" action="@Url.Action("Register", "Auth")" class="form-group">
+                    <div class="mb-2">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                @Html.LabelFor(m => m.FirstName, htmlAttributes: new { @class = "form-label" })
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                @Html.LabelFor(m => m.LastName, htmlAttributes: new { @class = "form-label" })
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        @Html.LabelFor(m => m.Email, htmlAttributes: new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                    <div class="mb-2">
+                        @Html.LabelFor(m => m.Tag, htmlAttributes: new { @class = "form-label" })
+                        <div class="input-group">
+                            <span class="input-group-text">@@</span>
+                            @Html.TextBoxFor(m => m.Tag, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "form-label" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function OpenUserModal(id){
+        $('#modal-user').modal('show');
+        $('#form-user')[0].reset();
+
+        if (id){
+            $.ajax({
+                url: `@Url.Action("Users", "User")/${id}`,
+                method: 'GET',
+                success: FillUserModal,
+            });
+        }
+    }
+
+    function FillUserModal(res){
+        if (!res.success)
+            ShowToast(res.message);
+        else {
+            $('#FirstName').val(res.data.userName);
+            $('#LastName').val(res.data.lastName);
+            $('#Email').val(res.data.email);
+            $('#Tag').val(res.data.tag);
+        }
+    }
+
+</script>
