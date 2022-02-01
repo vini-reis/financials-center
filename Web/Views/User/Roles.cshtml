@@ -1,0 +1,81 @@
+﻿@model RoleViewModel
+
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="float-end">
+            <button type="button" class="btn btn-primary btn-lg btn-floating" onclick="OpenUserModal()">
+                <span class="material-icons-round mt-2">add</span>
+            </button>
+        </div>
+        <h3>Roles</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Claims</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model.Roles)
+                {
+                    <tr>
+                        <td>@role.Name</td>
+                        <td>@string.Join(", ", @role.Claims)</td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-sm btn-primary btn-rounded waves-effect waves-light dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="javascript: OpenRoleModal('@role.Id')">Edit claims</a></li>
+                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <hr />
+        <h3>Claims</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Value</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var claim in Model.Claims)
+                {
+                    <tr>
+                        <td>@claim.Type</td>
+                        <td>@claim.ValueType</td>
+                        <td>@claim.Value</td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-sm btn-primary btn-rounded waves-effect waves-light dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="javascript: OpenClaimModal('@claim.Type')">Edit claims</a></li>
+                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <hr />
+    </div>
+</div>
+
+<partial name="_DetailsModal" />
+
+<script>
+
+</script>

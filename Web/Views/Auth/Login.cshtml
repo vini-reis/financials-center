@@ -14,7 +14,7 @@
             </div>
             <div class="mb-3">
                 @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "form-label" })
-                @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

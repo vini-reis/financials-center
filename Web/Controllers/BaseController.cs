@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
 using Data.Entities.Authentication;
-using Web.ViewModels;
-using Data.Entities.Helpers;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace Web.Controllers
 {
     public class BaseController : Controller
     {
+        private readonly ILogger<HomeController> _logger;
+
 
     }
 }

@@ -18,11 +18,13 @@ namespace Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
 
-        public UserController(ILogger<HomeController> logger, UserManager<User> userManager)
+        public UserController(ILogger<HomeController> logger, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             _logger = logger;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -95,5 +97,17 @@ namespace Web.Controllers
             return Json(result);
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("Role/")]
+        public async Task<ActionResult> Roles()
+        {
+            var viewModel = new RoleViewModel()
+            {
+                Roles = _roleManager.Roles.ToList(),
+            };
+
+            return View("Roles", viewModel);
+        }
     }
 }

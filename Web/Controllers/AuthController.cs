@@ -16,13 +16,11 @@ namespace Web.Controllers
 {
     public class AuthController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
-        public AuthController(ILogger<HomeController> logger, UserManager<User> userManager, SignInManager<User> signInManager)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            _logger = logger;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -58,6 +56,15 @@ namespace Web.Controllers
             }
 
             return Json(result);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Logout()
+        {
+            if (User.Identity.IsAuthenticated)
+                await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
