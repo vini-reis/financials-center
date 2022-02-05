@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="float-end">
-            <button type="button" class="btn btn-primary btn-lg btn-floating" onclick="OpenUserModal()">
+            <button type="button" class="btn btn-primary btn-lg btn-floating" onclick="OpenRoleModal()">
                 <span class="material-icons-round mt-2">add</span>
             </button>
         </div>
@@ -39,7 +39,11 @@
                 }
             </tbody>
         </table>
-        <hr />
+        <div class="float-end">
+            <button type="button" class="btn btn-primary btn-lg btn-floating" onclick="void(0)">
+                <span class="material-icons-round mt-2">add</span>
+            </button>
+        </div>
         <h3>Claims</h3>
         <table class="table">
             <thead>
@@ -74,8 +78,5 @@
     </div>
 </div>
 
-<partial name="_DetailsModal" />
-
-<script>
-
-</script>
+<partial name="_RoleDetailsModal" />
+<script src="~/js/user/role.js"></script>

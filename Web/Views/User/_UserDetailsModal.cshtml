@@ -48,7 +48,6 @@
 
 <script>
     function OpenUserModal(id){
-        $('#modal-user').modal('show');
         $('#form-user')[0].reset();
 
         if (id){
@@ -58,6 +57,8 @@
                 success: FillUserModal,
             });
         }
+
+        $('#modal-user').modal('show');
     }
 
     function FillUserModal(res){

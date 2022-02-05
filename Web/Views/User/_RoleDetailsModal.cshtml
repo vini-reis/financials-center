@@ -1,0 +1,45 @@
+﻿@model Web.ViewModels.RoleViewModel
+
+<div id="modal-role" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Role's details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-role" method="post" action="@Url.Action("", "Role")" class="form-group">
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="mb-2">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "form-label" })
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-12 mt-2">
+                                @Html.Label("", "Claims", new { @class = "form-label" })
+                                <hr />
+                            </div>
+                            @foreach (var claim in Model.Claims)
+                            {
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="check-claim-@claim.Type" />
+                                            <label class="form-check-label" for="check-claim-@claim.Type">@claim.Type</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Back</button>
+                <button type="button" class="btn btn-primary" onclick="$('#form-role').submit()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+

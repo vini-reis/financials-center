@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "devDependencies": {
+    "webpack": "5.68.0",
+    "@types/jquery": "3.5.13",
+    "@types/bootstrap": "5.1.9"
+  }
+}

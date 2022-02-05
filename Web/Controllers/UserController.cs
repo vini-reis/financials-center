@@ -100,7 +100,7 @@ namespace Web.Controllers
         [HttpGet]
         [Authorize]
         [Route("Role/")]
-        public async Task<ActionResult> Roles()
+        public ActionResult Roles()
         {
             var viewModel = new RoleViewModel()
             {
@@ -109,5 +109,29 @@ namespace Web.Controllers
 
             return View("Roles", viewModel);
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("Role/")]
+        public async Task<ActionResult> CreateRole (RoleViewModel viewModel)
+        {
+            var result = new Result<object>();
+
+            if (!ModelState.IsValid)
+                result.Failed(ModelState.Values.First().Errors.First().ErrorMessage);
+            else
+            {
+                var newRole = new Role() { Name = viewModel.Name };
+                var roleResult = await _roleManager.CreateAsync(newRole);
+
+                if (roleResult.Succeeded)
+                    result.Succeeded(newRole);
+                else
+                    result.Failed(roleResult.Errors.First().Description);
+            }
+
+            return Json(result);
+        }
+
     }
 }

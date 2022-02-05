@@ -1,9 +1,25 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿import bootstrap = require('bootstrap');
 
-var toast = null;
+const toast = new bootstrap.Toast(document.getElementById("main-toast"), {
+    animation: true,
+    autohide: true,
+    delay: 5000,
+});
 
-const ColorEnum = {
+export interface Result {
+    success: boolean;
+    message: string;
+    internalMessage: string;
+    data: any;
+}
+
+export interface Form {
+    action: string,
+    method: string,
+    enctype: string,
+}
+
+export const ColorEnum = {
     Danger: 'danger',
     Success: 'success',
     Primary: 'primary',
@@ -11,27 +27,22 @@ const ColorEnum = {
     Info: 'info',
 }
 
-function Init() {
-    // Initializes the toast
-    toast = new bootstrap.Toast(document.getElementById("main-toast"), {
-        animation: true,
-        autohide: true,
-        delay: 5000,
-    });
+export function Init() {
+
 }
 
-function ShowToast(message, color) {
+export function ShowToast(message : string, color : string) {
     $("#main-toast-body").empty().html(message);
     $("#main-toast").removeClass().addClass(`toast align-items-center text-white border-0 ml-3 mb-3 bg-${color || ColorEnum.Primary}`);
     toast.show();
 }
 
-function SubmitForm(form, callback) {
-    $.ajax({
+export function SubmitForm(form: HTMLFormElement, callback: (res: Result) => any) {
+    jQuery.ajax({
         url: form.action,
         method: form.method,
         dataType: "json",
-        data: form.serializeArray(),
+        data: jQuery(form).serializeArray(),
         success: callback || DefaultCallbackSubmitForm,
         error: function (jqXHR, status, error) {
             ShowToast(`${status}: ${error}`, ColorEnum.Danger);
@@ -39,14 +50,14 @@ function SubmitForm(form, callback) {
     });
 }
 
-function DefaultCallbackSubmitForm(res) {
+export function DefaultCallbackSubmitForm(res: Result) {
     if (!res.success)
         ShowToast(res.message, ColorEnum.Danger);
     else
         ShowToast("Finished!", ColorEnum.Success);
 }
 
-function ReloadCallback(res) {
+export function ReloadCallback(res) {
     if (!res.success)
         ShowToast(res.message, ColorEnum.Danger);
     else
